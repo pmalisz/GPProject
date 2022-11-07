@@ -21,7 +21,7 @@ variable_declaration
     :   ID ASSIGN equation ;
 
 io_functions
-    :   IN '()'
+    :   IN LEFT_PAREN factor RIGHT_PAREN
     |   OUT LEFT_PAREN factor RIGHT_PAREN ;
 
 block_statement
