@@ -8,12 +8,11 @@ import java.io.IOException;
 
 public class Serialize {
 
-    public Node root;
+
     public BufferedWriter writer;
 
-    Serialize(Node root, String fileName) throws IOException {
+    Serialize(String fileName){
         try {
-            this.root = root;
             writer = new BufferedWriter(new FileWriter(fileName));
         }
          catch (IOException e) {
