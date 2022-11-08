@@ -20,9 +20,9 @@ public class Serialize {
         }
     }
 
-    public void addToBuffer(char c){
+    public void addToBuffer(String s){
         try {
-            writer.append(c);
+            writer.append(s);
         }
         catch(IOException e){
             e.printStackTrace();

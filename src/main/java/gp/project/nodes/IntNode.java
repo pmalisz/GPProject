@@ -1,8 +1,8 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.enums.NodeType;
-
-import java.util.List;
+import java.util.Random;
 
 public class IntNode extends Node {
     public int value;
@@ -14,11 +14,19 @@ public class IntNode extends Node {
 
     @Override
     public void mutate() {
-        // TODO
+
     }
 
     @Override
     public void crossover(Node node) {
-        // TODO
+
+        }
+    @Override
+    public void serialize(Serialize serialization){
+        serialization.addToBuffer(Integer.toString(value));
+        for (var x: children) {
+            x.serialize(serialization);
+        }
     }
 }
+

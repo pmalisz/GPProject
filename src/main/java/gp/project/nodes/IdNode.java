@@ -1,5 +1,6 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.enums.NodeType;
 
 public class IdNode extends Node {
@@ -18,5 +19,18 @@ public class IdNode extends Node {
     @Override
     public void crossover(Node node) {
         // TODO
+    }
+
+    @Override
+    public int grow(){
+        return 0;
+    }
+
+    @Override
+    public void serialize(Serialize serialization){
+        serialization.addToBuffer(name);
+        for (var x: children) {
+            x.serialize(serialization);
+        }
     }
 }
