@@ -33,12 +33,6 @@ public class Node {
         this.children = List.copyOf(another.children);
     }
 
-    public void visitToSerialize(Serialize serialization){ //DFS + merge string to serialize with this function to keep ending tags
-        for (var x: children) {
-            stringToSerialize(serialization);
-            x.visitToSerialize(serialization);
-        }
-    }
 
     public int grow() {
         return -1;
@@ -72,7 +66,7 @@ public class Node {
         return this.type.toString();
     }
 
-    public String stringToSerialize(Serialize serialization) { //function to serialize every node
-        try{return "";}
+    public void serialize(Serialize serialization) { //DFS
+
     }
 }

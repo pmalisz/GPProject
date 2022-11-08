@@ -21,4 +21,13 @@ public class Serialize {
         }
     }
 
+    public void addToBuffer(char c) throws IOException {
+        try {
+            writer.append(c);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
 }

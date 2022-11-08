@@ -36,7 +36,11 @@ public class ProgramNode extends Node {
     }
 
     @Override
-    public String stringToSerialize(Serialize serialization){//handle exception
-        serialization.writer.append("<");
+    public void serialize(Serialize serialization){//handle exception
+        serialization.addToBuffer('<');
+        for (var x: children) {
+            x.serialize(serialization);
+        }
+        serialization.addToBuffer('>');
     }
 }
