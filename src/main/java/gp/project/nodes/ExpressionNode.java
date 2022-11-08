@@ -15,20 +15,20 @@ public class ExpressionNode extends Node {
 
     public void grow(int maxDepth) {
         int rand = Tree.rd.nextInt(2);
-        boolean growFurther = this.children.isEmpty() && this.type != NodeType.NOT;
-        if (this.depth >= maxDepth - 1) {
+        boolean growFurther = children.isEmpty() && type != NodeType.NOT;
+        if (depth >= maxDepth - 1) {
             rand = 0;
         }
 
         if (rand == 0) {
-            this.addFactorChild();
+            addFactorChild();
         } else {
-            ExpressionNode expNode = this.addExpressionChild();
+            ExpressionNode expNode = addExpressionChild();
             expNode.grow(maxDepth);
         }
 
         if (growFurther) {
-            this.grow(maxDepth);
+            grow(maxDepth);
         }
 
     }

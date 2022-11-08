@@ -38,7 +38,7 @@ public class FactorNode extends Node {
         NodeType intOrId = NodeType.getRandomFactor();
         if (intOrId == NodeType.ID) {
             this.type = NodeType.ID;
-            this.name = this.tree.getRandomVariable();
+            this.name = tree.getRandomVariable();
         } else {
             this.type = NodeType.INT;
             this.value = Tree.numbers.get(Tree.rd.nextInt(Tree.numbers.size()));
@@ -46,7 +46,7 @@ public class FactorNode extends Node {
     }
 
     public Optional<Node> crossover(Node node, int nodeNumber) {
-        if (this.number != nodeNumber) {
+        if (number != nodeNumber) {
             return Optional.empty();
         } else {
             List<Node> properNodes = node.find(this.getClass());
@@ -61,9 +61,9 @@ public class FactorNode extends Node {
 
     @Override
     public void print() {
-        if (this.type == NodeType.ID)
-            System.out.println(getStringToPrint() + this.name);
+        if (type == NodeType.ID)
+            System.out.println(getStringToPrint() + name);
         else
-            System.out.println(getStringToPrint() + this.value);
+            System.out.println(getStringToPrint() + value);
     }
 }
