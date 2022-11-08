@@ -3,17 +3,18 @@ package gp.project;
 import gp.project.nodes.Node;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Serialize {
 
-
-    public BufferedWriter writer;
+    public FileWriter writer;
 
     Serialize(String fileName){
         try {
-            writer = new BufferedWriter(new FileWriter(fileName));
+            File file = new File(fileName);
+            writer =  new FileWriter(file, true);
         }
          catch (IOException e) {
             e.printStackTrace();
@@ -22,11 +23,13 @@ public class Serialize {
 
     public void addToBuffer(String s){
         try {
-            writer.append(s);
+            writer.write(s);
+            writer.flush();
         }
         catch(IOException e){
             e.printStackTrace();
         }
     }
+
 
 }

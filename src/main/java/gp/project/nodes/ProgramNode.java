@@ -43,7 +43,7 @@ public class ProgramNode extends Node {
     }
 
     @Override
-    public void serialize(Serialize serialization){//handle exception
+    public void serialize(Serialize serialization){
         serialization.addToBuffer("<");
         for (var x: children) {
             x.serialize(serialization);

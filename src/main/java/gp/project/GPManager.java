@@ -80,18 +80,18 @@ public class GPManager {
     }
 
     void createRandomPopulation(double[] fitness) {
+        var serial = new Serialize("new_file.txt");
         for (int i = 0; i < POP_SIZE; i++) {
-            Tree tree = this.createRandomTree();
+            Tree tree = this.createRandomTree(serial);
             this.population.add(tree);
             fitness[i] = this.fitnessFunction(this.runForAllInputs(tree));
         }
     }
 
-    Tree createRandomTree() {
+    Tree createRandomTree(Serialize serializer) {
         Tree tree = new Tree();
         tree.grow(MAX_DEPTH);
-        var serial = new Serialize("new_file");
-        tree.root.serialize(serial);
+        tree.root.serialize(serializer);
         return tree;
     }
 
