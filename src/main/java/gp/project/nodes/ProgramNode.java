@@ -1,7 +1,9 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.enums.NodeType;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ProgramNode extends Node {
@@ -33,5 +35,8 @@ public class ProgramNode extends Node {
         // TODO
     }
 
-
+    @Override
+    public String stringToSerialize(Serialize serialization){//handle exception
+        serialization.writer.append("<");
+    }
 }

@@ -1,7 +1,9 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.enums.NodeType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,13 @@ public class Node {
         this.type = another.type;
         this.depth = another.depth;
         this.children = List.copyOf(another.children);
+    }
+
+    public void visitToSerialize(Serialize serialization){ //DFS + merge string to serialize with this function to keep ending tags
+        for (var x: children) {
+            stringToSerialize(serialization);
+            x.visitToSerialize(serialization);
+        }
     }
 
     public int grow() {
@@ -63,5 +72,7 @@ public class Node {
         return this.type.toString();
     }
 
-    //public void serial(){}
+    public String stringToSerialize(Serialize serialization) { //function to serialize every node
+        try{return "";}
+    }
 }

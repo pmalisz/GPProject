@@ -21,8 +21,4 @@ public class Serialize {
         }
     }
 
-    public void serialize(Node root) throws IOException {
-        writer.append("<");
-        //root.serialize()
-    }
 }
