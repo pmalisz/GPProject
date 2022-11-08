@@ -21,7 +21,7 @@ public class Serialize {
         }
     }
 
-    public void addToBuffer(char c) throws IOException {
+    public void addToBuffer(char c){
         try {
             writer.append(c);
         }
