@@ -1,7 +1,9 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.enums.NodeType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class Node {
         this.depth = another.depth;
         this.children = List.copyOf(another.children);
     }
+
 
     public int grow() {
         return -1;
@@ -61,5 +64,9 @@ public class Node {
 
     public String toString() {
         return this.type.toString();
+    }
+
+    public void serialize(Serialize serialization) { //DFS
+
     }
 }

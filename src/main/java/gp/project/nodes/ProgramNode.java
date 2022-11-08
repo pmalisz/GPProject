@@ -1,7 +1,9 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.enums.NodeType;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ProgramNode extends Node {
@@ -31,5 +33,14 @@ public class ProgramNode extends Node {
     @Override
     public void crossover(Node node) {
         // TODO
+    }
+
+    @Override
+    public void serialize(Serialize serialization){//handle exception
+        serialization.addToBuffer("<");
+        for (var x: children) {
+            x.serialize(serialization);
+        }
+        serialization.addToBuffer(">");
     }
 }
