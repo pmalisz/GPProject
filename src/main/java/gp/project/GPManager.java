@@ -31,14 +31,14 @@ public class GPManager {
         fitness =  new double[POP_SIZE];
 
         seed = s;
-        if (this.seed >= 0L) {
-            rd.setSeed(this.seed);
-            Tree.setSeed(this.seed);
+        if (seed >= 0L) {
+            rd.setSeed(seed);
+            Tree.setSeed(seed);
         }
 
         setup(fileName);
         for (int i = 0; i < RANDOM_COUNT; i++ )
-            Tree.addRandomNumber(this.minRandom, this.maxRandom);
+            Tree.addRandomNumber(minRandom, maxRandom);
 
         createRandomPopulation(fitness);
     }
@@ -81,9 +81,9 @@ public class GPManager {
 
     void createRandomPopulation(double[] fitness) {
         for (int i = 0; i < POP_SIZE; i++) {
-            Tree tree = this.createRandomTree();
-            this.population.add(tree);
-            fitness[i] = this.fitnessFunction(this.runForAllInputs(tree));
+            Tree tree = createRandomTree();
+            population.add(tree);
+            fitness[i] = fitnessFunction(runForAllInputs(tree));
         }
     }
 
