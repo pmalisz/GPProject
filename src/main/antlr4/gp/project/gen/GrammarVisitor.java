@@ -41,12 +41,6 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIo_functions(GrammarParser.Io_functionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GrammarParser#block_statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock_statement(GrammarParser.Block_statementContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link GrammarParser#conditional_statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

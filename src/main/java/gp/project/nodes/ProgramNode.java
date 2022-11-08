@@ -1,38 +1,45 @@
 package gp.project.nodes;
 
 import gp.project.Serialize;
+import gp.project.Tree;
 import gp.project.enums.NodeType;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class ProgramNode extends Node {
 
-    public ProgramNode() {
-        super(NodeType.PROGRAM, 0);
+    public ProgramNode(Tree tree) {
+        super(tree, NodeType.PROGRAM, 0, 0);
+    }
+
+    public ProgramNode(Tree tree, Node another) {
+        super(tree, another);
     }
 
     public double run(List<Double> input) {
-        // TODO run program and return output (for the future)
+        // TODO (in the future)
 
         return input.get(input.size() - 1);
     }
 
-    @Override
-    public int grow() {
-        // TODO
-
-        return -1;
+    public void grow(int maxDepth) {
+        int growFurther = Tree.rd.nextInt(2);
+        StatementNode stNode = addStatementChild(maxDepth);
+        stNode.grow(maxDepth);
+        if (growFurther == 1)
+            grow(maxDepth);
     }
 
-    @Override
     public void mutate() {
         // TODO
     }
 
-    @Override
-    public void crossover(Node node) {
+    public Optional<Node> crossover(Node node) {
+        int rand = Tree.rd.nextInt(tree.nodesCount);
+
         // TODO
+        return Optional.empty();
     }
 
     @Override

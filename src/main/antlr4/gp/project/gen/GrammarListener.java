@@ -58,16 +58,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitIo_functions(GrammarParser.Io_functionsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#block_statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlock_statement(GrammarParser.Block_statementContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#block_statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlock_statement(GrammarParser.Block_statementContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#conditional_statement}.
 	 * @param ctx the parse tree
 	 */

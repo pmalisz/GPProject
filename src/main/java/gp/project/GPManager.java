@@ -1,6 +1,5 @@
 package gp.project;
 
-import gp.project.nodes.*;
 import java.io.*;
 import java.util.*;
 import java.lang.Math;
@@ -10,8 +9,9 @@ public class GPManager {
     final int
             POP_SIZE = 25000,
             GENERATIONS = 100,
-            RANDOM_COUNT = 100,
-            T_SIZE = 2;
+            RANDOM_COUNT = 102,
+            T_SIZE = 2,
+            MAX_DEPTH = 4;
     public final double
             CROSSOVER_PROB = 0.9,
             EPSILON = -1e-5;
@@ -19,10 +19,9 @@ public class GPManager {
     // VAR
     static Random rd = new Random();
 
-    List<ProgramNode> population;
+    List<Tree> population;
     double[] fitness;
-    double[] x = new double[RANDOM_COUNT];
-    double minRandom, maxRandom;
+    int minRandom, maxRandom;
     int varNumber, fitnessCases, randomNumber;
     long seed;
     double[][] targets;
@@ -32,12 +31,14 @@ public class GPManager {
         fitness =  new double[POP_SIZE];
 
         seed = s;
-        if ( seed >= 0 )
-            rd.setSeed(seed);
+        if (this.seed >= 0L) {
+            rd.setSeed(this.seed);
+            Tree.setSeed(this.seed);
+        }
 
         setup(fileName);
         for (int i = 0; i < RANDOM_COUNT; i++ )
-            x[i] = (maxRandom - minRandom) * rd.nextDouble() + minRandom;
+            Tree.addRandomNumber(this.minRandom, this.maxRandom);
 
         createRandomPopulation(fitness);
     }
@@ -50,8 +51,8 @@ public class GPManager {
 
             varNumber = Integer.parseInt(tokens.nextToken().trim());
             randomNumber = Integer.parseInt(tokens.nextToken().trim());
-            minRandom =	Double.parseDouble(tokens.nextToken().trim());
-            maxRandom =  Double.parseDouble(tokens.nextToken().trim());
+            minRandom =	Integer.parseInt(tokens.nextToken().trim());
+            maxRandom =  Integer.parseInt(tokens.nextToken().trim());
             fitnessCases = Integer.parseInt(tokens.nextToken().trim());
 
             if (varNumber + randomNumber >= RANDOM_COUNT)
@@ -80,29 +81,30 @@ public class GPManager {
 
     void createRandomPopulation(double[] fitness) {
         for (int i = 0; i < POP_SIZE; i++) {
-            ProgramNode root = createRandomTree();
-            population.add(root);
-            fitness[i] = fitnessFunction(runForAllInputs(root));
+            Tree tree = this.createRandomTree();
+            this.population.add(tree);
+            fitness[i] = this.fitnessFunction(this.runForAllInputs(tree));
         }
     }
 
-    ProgramNode createRandomTree() {
-        ProgramNode root = new ProgramNode();
-        root.grow();
+    Tree createRandomTree() {
+        Tree tree = new Tree();
+        tree.grow(MAX_DEPTH);
         var serial = new Serialize("new_file");
-        root.serialize(serial);
-        return root;
+        tree.root.serialize(serial);
+        return tree;
     }
 
-    List<Double> runForAllInputs(ProgramNode root) {
+    List<Double> runForAllInputs(Tree tree) {
         List<Double> input = new ArrayList<>();
         List<Double> outputs = new ArrayList<>();
+
         for (int i = 0; i < fitnessCases; i ++) {
             // TODO for now including target value, to be changed in the future
             for (int j = 0; j <= varNumber; j++)
                 input.add(targets[i][j]);
 
-            outputs.add(root.run(input));
+            outputs.add(tree.run(input));
             input.clear();
         }
 
@@ -127,21 +129,21 @@ public class GPManager {
             }
 
             for (int i = 0; i < POP_SIZE; i++) {
-                ProgramNode newRoot;
+                Tree newTree;
 
                 if (rd.nextDouble() < CROSSOVER_PROB) {
                     int parent1 = tournament();
                     int parent2 = tournament();
-                    newRoot = crossover(population.get(parent1), population.get(parent2));
+                    newTree = crossover(population.get(parent1), population.get(parent2));
                 }
                 else {
                     int parent = tournament();
-                    newRoot = mutation(population.get(parent));
+                    newTree = mutation(population.get(parent));
                 }
 
-                double newFit = fitnessFunction(runForAllInputs(newRoot));
+                double newFit = fitnessFunction(runForAllInputs(newTree));
                 int offspring = negativeTournament(fitness);
-                population.set(offspring, newRoot);
+                population.set(offspring, newTree);
                 fitness[offspring] = newFit;
             }
         }
@@ -193,17 +195,15 @@ public class GPManager {
         return worst;
     }
 
-    ProgramNode crossover(Node parent1, Node parent2) {
-        ProgramNode offspring = (ProgramNode)parent1.copy();
+    Tree crossover(Tree parent1, Tree parent2) {
+        Tree offspring = parent1.copy();
         offspring.crossover(parent2);
-
-        return new ProgramNode();
+        return offspring;
     }
 
-    ProgramNode mutation(ProgramNode parent) {
-        ProgramNode offspring = (ProgramNode)parent.copy();
+    Tree mutation(Tree parent) {
+        Tree offspring = parent.copy();
         offspring.mutate();
-
         return offspring;
     }
 }

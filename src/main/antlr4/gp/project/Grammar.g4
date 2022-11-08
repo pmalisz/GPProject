@@ -13,19 +13,15 @@ statement
 simple_statement
     :   (variable_declaration SEMI)
     |   (io_functions SEMI)
-    |   block_statement
     |   conditional_statement
     |   iteration_statement ;
 
 variable_declaration
-    :   ID ASSIGN equation ;
+    :   ID ASSIGN expression ;
 
 io_functions
-    :   IN LEFT_PAREN factor RIGHT_PAREN
+    :   IN LEFT_PAREN ID RIGHT_PAREN
     |   OUT LEFT_PAREN factor RIGHT_PAREN ;
-
-block_statement
-    :   LEFT_BRACE statement RIGHT_BRACE ;
 
 conditional_statement
     :   IF LEFT_PAREN expression RIGHT_PAREN LEFT_BRACE statement RIGHT_BRACE (ELSE (LEFT_BRACE statement RIGHT_BRACE | conditional_statement))? ;
