@@ -89,7 +89,11 @@ public class GPManager {
     ProgramNode createRandomTree() {
         ProgramNode root = new ProgramNode();
         root.grow();
-
+        try {
+            var serial = new Serialize(root,"new_file");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return root;
     }
 

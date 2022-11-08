@@ -62,4 +62,6 @@ public class Node {
     public String toString() {
         return this.type.toString();
     }
+
+    //public void serial(){}
 }
