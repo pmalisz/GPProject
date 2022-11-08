@@ -91,7 +91,6 @@ public class GPManager {
     Tree createRandomTree(Serialize serializer) {
         Tree tree = new Tree();
         tree.grow(MAX_DEPTH);
-
         tree.root.serialize(serializer);
         return tree;
     }
