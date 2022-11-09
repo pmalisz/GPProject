@@ -1,5 +1,6 @@
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.Tree;
 import gp.project.enums.NodeType;
 import java.util.Optional;
@@ -52,5 +53,36 @@ public class StatementNode extends Node {
 
     public Optional<Node> crossover(Node node, int nodeNumber) {
         return Optional.empty();
+    }
+
+    public void serialize(Serialize serialization){
+        switch(this.type) {
+            case IN:
+//                children.get(0).serialize(serialization);
+//                serialization.addToBuffer(" in ");
+//                children.get(1).serialize(serialization);
+
+            case OUT:
+
+//                children.get(0).serialize(serialization);
+//                serialization.addToBuffer(" out ");
+//                children.get(1).serialize(serialization);
+            case IF:
+                serialization.addToBuffer(" if( ");
+                for (var x : children) {
+                    x.serialize(serialization);
+                }
+                serialization.addToBuffer(") ");
+            case WHILE:
+                serialization.addToBuffer(" while( ");
+                for (var x : children) {
+                    x.serialize(serialization);
+                }
+                serialization.addToBuffer(") ");
+            case ASSIGN:
+//                children.get(0).serialize(serialization);
+//                serialization.addToBuffer(" = ");
+//                children.get(1).serialize(serialization);
+        }
     }
 }

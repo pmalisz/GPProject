@@ -5,6 +5,7 @@
 
 package gp.project.nodes;
 
+import gp.project.Serialize;
 import gp.project.Tree;
 import gp.project.enums.NodeType;
 import java.io.PrintStream;
@@ -65,5 +66,14 @@ public class FactorNode extends Node {
             System.out.println(getStringToPrint() + name);
         else
             System.out.println(getStringToPrint() + value);
+    }
+
+    @Override
+    public void serialize(Serialize serialization){
+        if(type == NodeType.ID)
+            serialization.addToBuffer(name);
+        else {
+            serialization.addToBuffer(Integer.toString(value));
+        }
     }
 }
