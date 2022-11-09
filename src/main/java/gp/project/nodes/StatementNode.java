@@ -78,20 +78,18 @@ public class StatementNode extends Node {
                 break;
             case IF:
                 serialization.addToBuffer("(");
-                serialization.addToBuffer("if( ");
+                serialization.addToBuffer("if");
                 for (var x : children) {
                     x.serialize(serialization);
                 }
-                serialization.addToBuffer(")");
                 serialization.addToBuffer(")");
                 break;
             case WHILE:
                 serialization.addToBuffer("(");
-                serialization.addToBuffer("while(");
+                serialization.addToBuffer("while");
                 for (var x : children) {
                     x.serialize(serialization);
                 }
-                serialization.addToBuffer(")");
                 serialization.addToBuffer(")");
                 break;
         }

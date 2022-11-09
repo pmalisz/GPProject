@@ -110,8 +110,7 @@ public class Node {
         this.children.add(new FactorNode(tree, Tree.numbers.get(intIdx), depth + 1, tree.nodesCount++));
     }
 
-    public void serialize(Serialize serialization) { //DFS
-
+    public void serialize(Serialize serialization) {
     }
 
     public int recountNodes(int childrenCount)
