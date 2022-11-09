@@ -67,7 +67,7 @@ public enum NodeType {
                 .filter(NodeType -> NodeType.value == value)
                 .findFirst();
     }
-
+    @Override
     public String toString() {
         return this.name;
     }

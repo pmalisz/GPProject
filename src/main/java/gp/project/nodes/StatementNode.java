@@ -61,7 +61,7 @@ public class StatementNode extends Node {
             case ASSIGN:
             case OUT:
                 if (children.size() == 1) {
-                    serialization.addToBuffer(this.type.name());
+                    serialization.addToBuffer(this.type.toString());
                     children.get(0).serialize(serialization);
                     serialization.addToBuffer(")");
 
@@ -69,7 +69,7 @@ public class StatementNode extends Node {
                 else{
                     serialization.addToBuffer("(");
                     children.get(0).serialize(serialization);
-                    serialization.addToBuffer(this.type.name());
+                    serialization.addToBuffer(this.type.toString());
                     children.get(1).serialize(serialization);
                     serialization.addToBuffer(")");
 
