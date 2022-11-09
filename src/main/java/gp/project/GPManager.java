@@ -7,11 +7,10 @@ import java.lang.Math;
 public class GPManager {
     // CONST
     final int
-            POP_SIZE = 3,
+            POP_SIZE = 2,
             GENERATIONS = 100,
             RANDOM_COUNT = 102,
-            T_SIZE = 2,
-            MAX_DEPTH = 4;
+            T_SIZE = 2;
     public final double
             CROSSOVER_PROB = 0.9,
             EPSILON = -1e-5;
@@ -90,7 +89,7 @@ public class GPManager {
 
     Tree createRandomTree(Serialize serializer) {
         Tree tree = new Tree();
-        tree.grow(MAX_DEPTH);
+        tree.grow();
         tree.root.serialize(serializer);
         return tree;
     }
@@ -164,9 +163,14 @@ public class GPManager {
 
         population.get(best).print();
 
-        // If you want to test your mutate or crossover, please uncomment below
-        // population.get(best).mutate();
-        // population.get(best).print();
+        // mutate test
+        /*population.get(0).mutate();
+        population.get(0).print();*/
+
+        // crossover test
+        /*population.get(1).print();
+        population.get(0).crossover(population.get(1));
+        population.get(0).print();*/
 
         return bestFitness;
     }

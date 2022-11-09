@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package gp.project.enums;
 
 import gp.project.Tree;
@@ -60,24 +55,6 @@ public enum NodeType {
         int exp = Tree.rd.nextInt(INT.value - ID.value + 1) + ID.value;
         Optional<NodeType> nodeType = valueOf(exp);
         return nodeType.orElse(ID);
-    }
-
-    public boolean isStatement()
-    {
-        NodeType[] values = { IN, OUT, ASSIGN, IF, WHILE, };
-        return Arrays.asList(values).contains(this);
-    }
-
-    public boolean isExpression()
-    {
-        NodeType[] values = { PLUS, MINUS, TIMES, DIV, GREATER, LESS, AND, OR, NOT, EQUAL, NOT_EQUAL };
-        return Arrays.asList(values).contains(this);
-    }
-
-    public boolean isFactor()
-    {
-        NodeType[] values = { ID, INT };
-        return Arrays.asList(values).contains(this);
     }
 
     private static Optional<NodeType> valueOf(int value) {

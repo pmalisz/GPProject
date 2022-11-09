@@ -3,6 +3,7 @@ package gp.project.nodes;
 import gp.project.Serialize;
 import gp.project.Tree;
 import gp.project.enums.NodeType;
+
 import java.util.Optional;
 
 public class StatementNode extends Node {
@@ -14,7 +15,7 @@ public class StatementNode extends Node {
         super(tree, another);
     }
 
-    public void grow(int maxDepth) {
+    public void grow() {
         switch(this.type) {
             case IN:
                 this.addIdChild();
@@ -23,39 +24,50 @@ public class StatementNode extends Node {
                 this.addFactorChild();
                 break;
             case IF:
-                this.growIfAndWhileBase(maxDepth);
+                this.growIfAndWhileBase();
                 int isElse = Tree.rd.nextInt(2);
                 if (isElse == 1) {
-                    StatementNode falseNode = addStatementChild(maxDepth);
-                    falseNode.grow(maxDepth);
+                    StatementNode falseNode = addStatementChild();
+                    falseNode.grow();
                 }
                 break;
             case WHILE:
-                this.growIfAndWhileBase(maxDepth);
+                this.growIfAndWhileBase();
                 break;
             case ASSIGN:
                 this.addIdChild();
-                ExpressionNode expNode = addExpressionChild();
-                expNode.grow(maxDepth);
+                int rand = Tree.rd.nextInt(2);
+                if(rand == 0 || depth >= Tree.MAX_DEPTH - 1)
+                    addFactorChild();
+                else {
+                    ExpressionNode expNode = addExpressionChild();
+                    expNode.grow();
+                }
         }
 
     }
 
-    private void growIfAndWhileBase(int maxDepth) {
+    private void growIfAndWhileBase() {
         ExpressionNode expNode = addExpressionChild();
-        expNode.grow(maxDepth);
-        StatementNode trueNode = addStatementChild(maxDepth);
-        trueNode.grow(maxDepth);
+        expNode.grow();
+        StatementNode trueNode = addStatementChild();
+        trueNode.grow();
     }
 
+    @Override
     public void mutate() {
         clearChildren();
         type = NodeType.getRandomStatement();
-        grow(depth);
+        grow();
     }
 
+    @Override
     public Optional<Node> crossover(Node node, int nodeNumber) {
-        return Optional.empty();
+        if (number != nodeNumber) {
+            return crossoverFurther(node, nodeNumber);
+        } else {
+            return crossoverBody(node);
+        }
     }
 
     public void serialize(Serialize serialization){

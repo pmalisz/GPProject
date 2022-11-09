@@ -6,6 +6,7 @@ import gp.project.enums.NodeType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Node {
     public Tree tree;
@@ -50,13 +51,14 @@ public class Node {
         }
     }
 
-    public List<Node> find(Class<?> type) {
+    public List<Node> findByClass(Class<?> type) {
         List<Node> nodes = new ArrayList<>();
-
         for(Node child : children) {
-            if (child.getClass() == type) {
+            if (type.isInstance(child)) {
                 nodes.add(child);
             }
+
+            nodes.addAll(child.findByClass(type));
         }
 
         return nodes;
@@ -78,8 +80,8 @@ public class Node {
         return "-".repeat(Math.max(0, depth)) + "\\";
     }
 
-    protected StatementNode addStatementChild(int maxDepth) {
-        NodeType newType = depth < maxDepth - 1 ? NodeType.getRandomStatement() : NodeType.getRandomOneLineStatement();
+    protected StatementNode addStatementChild() {
+        NodeType newType = depth < Tree.MAX_DEPTH - 2 ? NodeType.getRandomStatement() : NodeType.getRandomOneLineStatement();
         StatementNode stNode = new StatementNode(tree, newType, depth + 1, tree.nodesCount++);
         children.add(stNode);
         return stNode;
@@ -110,6 +112,36 @@ public class Node {
         this.children.add(new FactorNode(tree, Tree.numbers.get(intIdx), depth + 1, tree.nodesCount++));
     }
 
+    public void mutate(){
+
+    }
+
+    public Optional<Node> crossover(Node node, int nodeNumber){
+        return Optional.empty();
+    }
+
+    protected Optional<Node> crossoverFurther(Node node, int nodeNumber){
+        for(int i=0; i<children.size(); i++){
+            Optional<Node> toReplace = children.get(i).crossover(node, nodeNumber);
+            if (toReplace.isPresent()) {
+                children.set(i, toReplace.get());
+                return Optional.empty();
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    protected Optional<Node> crossoverBody(Node node) {
+        List<Node> properNodes = node.findByClass(this.getClass());
+        if (properNodes.isEmpty()) {
+            return Optional.empty();
+        } else {
+            int rand = Tree.rd.nextInt(properNodes.size());
+            return Optional.of(properNodes.get(rand));
+        }
+    }
+
     public void serialize(Serialize serialization) {
     }
 
@@ -125,7 +157,7 @@ public class Node {
 
     public void clearChildren()
     {
-        children = new ArrayList<>();
+        children.clear();
         tree.recountNodes();
     }
 

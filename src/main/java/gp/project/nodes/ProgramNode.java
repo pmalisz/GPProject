@@ -5,7 +5,6 @@ import gp.project.Tree;
 import gp.project.enums.NodeType;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ProgramNode extends Node {
 
@@ -23,30 +22,29 @@ public class ProgramNode extends Node {
         return input.get(input.size() - 1);
     }
 
-    public void grow(int maxDepth) {
+    public void grow() {
         int growFurther = Tree.rd.nextInt(2);
-        StatementNode stNode = addStatementChild(maxDepth);
-        stNode.grow(maxDepth);
+        StatementNode stNode = addStatementChild();
+        stNode.grow();
         if (growFurther == 1)
-            grow(maxDepth);
+            grow();
     }
 
     public void mutate() {
         int rand = Tree.rd.nextInt(tree.nodesCount);
         Node nodeToMutate = getNodeByNumber(rand);
-        if(nodeToMutate.type.isStatement())
-            ((StatementNode)nodeToMutate).mutate();
-        if(nodeToMutate.type.isExpression())
-            ((ExpressionNode)nodeToMutate).mutate();
-        if(nodeToMutate.type.isFactor())
-            ((FactorNode)nodeToMutate).mutate();
+        if(nodeToMutate.type == NodeType.PROGRAM){
+            clearChildren();
+            grow();
+            return;
+        }
+
+        nodeToMutate.mutate();
     }
 
-    public Optional<Node> crossover(Node node) {
-        int rand = Tree.rd.nextInt(tree.nodesCount);
-
-        // TODO
-        return Optional.empty();
+    public void crossover(Node node) {
+        int rand = Tree.rd.nextInt(tree.nodesCount - 1) + 1;
+        crossoverFurther(node, rand);
     }
 
     @Override

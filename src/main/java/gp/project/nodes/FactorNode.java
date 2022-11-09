@@ -1,15 +1,8 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package gp.project.nodes;
 
 import gp.project.Serialize;
 import gp.project.Tree;
 import gp.project.enums.NodeType;
-import java.io.PrintStream;
-import java.util.List;
 import java.util.Optional;
 
 public class FactorNode extends Node {
@@ -35,6 +28,7 @@ public class FactorNode extends Node {
 
     }
 
+    @Override
     public void mutate() {
         NodeType intOrId = NodeType.getRandomFactor();
         if (intOrId == NodeType.ID) {
@@ -46,17 +40,12 @@ public class FactorNode extends Node {
         }
     }
 
+    @Override
     public Optional<Node> crossover(Node node, int nodeNumber) {
         if (number != nodeNumber) {
             return Optional.empty();
         } else {
-            List<Node> properNodes = node.find(this.getClass());
-            if (properNodes.isEmpty()) {
-                return Optional.empty();
-            } else {
-                int rand = Tree.rd.nextInt(properNodes.size());
-                return Optional.of(properNodes.get(rand));
-            }
+            return crossoverBody(node);
         }
     }
 
