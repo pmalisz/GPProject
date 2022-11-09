@@ -58,31 +58,33 @@ public class StatementNode extends Node {
     public void serialize(Serialize serialization){
         switch(this.type) {
             case IN:
-//                children.get(0).serialize(serialization);
-//                serialization.addToBuffer(" in ");
-//                children.get(1).serialize(serialization);
-
+            case ASSIGN:
             case OUT:
-
-//                children.get(0).serialize(serialization);
-//                serialization.addToBuffer(" out ");
-//                children.get(1).serialize(serialization);
+                if (children.size() == 1) {
+                    serialization.addToBuffer(this.type.name());
+                    children.get(0).serialize(serialization);
+                }
+                else{
+                    children.get(0).serialize(serialization);
+                    serialization.addToBuffer(this.type.name());
+                    children.get(1).serialize(serialization);
+                }
+                break;
             case IF:
                 serialization.addToBuffer(" if( ");
                 for (var x : children) {
                     x.serialize(serialization);
                 }
                 serialization.addToBuffer(") ");
+                break;
             case WHILE:
                 serialization.addToBuffer(" while( ");
                 for (var x : children) {
                     x.serialize(serialization);
                 }
                 serialization.addToBuffer(") ");
-            case ASSIGN:
-//                children.get(0).serialize(serialization);
-//                serialization.addToBuffer(" = ");
-//                children.get(1).serialize(serialization);
+                break;
+        }
         }
     }
-}
+

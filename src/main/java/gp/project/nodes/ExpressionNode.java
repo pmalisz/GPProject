@@ -41,42 +41,15 @@ public class ExpressionNode extends Node {
     }
 
 
-    public void chooseSign(NodeType type, Serialize serialization) {
-        switch (this.type) {
-            case DIV:
-                serialization.addToBuffer(" / ");
-            case PLUS:
-                serialization.addToBuffer(" + ");
-            case MINUS:
-                serialization.addToBuffer(" - ");
-            case TIMES:
-                serialization.addToBuffer(" * ");
-            case LESS:
-                serialization.addToBuffer(" < ");
-            case GREATER:
-                serialization.addToBuffer(" > ");
-            case AND:
-                serialization.addToBuffer(" && ");
-            case OR:
-                serialization.addToBuffer(" || ");
-            case EQUAL:
-                serialization.addToBuffer(" == ");
-            case NOT_EQUAL:
-                serialization.addToBuffer(" != ");
-            case NOT:
-                serialization.addToBuffer(" ! ");
-        }
-    }
-
     public void serialize(Serialize serialization) {
         serialization.addToBuffer("(");
         if (children.size() == 1) {
-            this.chooseSign(this.type, serialization);
+            serialization.addToBuffer(this.type.name());
             children.get(0).serialize(serialization);
         }
         else{
             children.get(0).serialize(serialization);
-            this.chooseSign(this.type, serialization);
+            serialization.addToBuffer(this.type.name());
             children.get(1).serialize(serialization);
             }
         serialization.addToBuffer(")");
