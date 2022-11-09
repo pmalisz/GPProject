@@ -20,6 +20,8 @@ public class Node {
         children = new ArrayList<>();
     }
 
+
+
     public Node(Tree tree, NodeType type, int depth, int number) {
         this();
         this.tree = tree;

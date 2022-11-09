@@ -70,10 +70,13 @@ public class FactorNode extends Node {
 
     @Override
     public void serialize(Serialize serialization){
+        serialization.addToBuffer("(");
         if(type == NodeType.ID)
+
             serialization.addToBuffer(name);
         else {
             serialization.addToBuffer(Integer.toString(value));
         }
+        serialization.addToBuffer(")");
     }
 }

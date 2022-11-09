@@ -63,26 +63,35 @@ public class StatementNode extends Node {
                 if (children.size() == 1) {
                     serialization.addToBuffer(this.type.name());
                     children.get(0).serialize(serialization);
+                    serialization.addToBuffer(")");
+
                 }
                 else{
+                    serialization.addToBuffer("(");
                     children.get(0).serialize(serialization);
                     serialization.addToBuffer(this.type.name());
                     children.get(1).serialize(serialization);
+                    serialization.addToBuffer(")");
+
                 }
                 break;
             case IF:
-                serialization.addToBuffer(" if( ");
+                serialization.addToBuffer("(");
+                serialization.addToBuffer("if( ");
                 for (var x : children) {
                     x.serialize(serialization);
                 }
-                serialization.addToBuffer(") ");
+                serialization.addToBuffer(")");
+                serialization.addToBuffer(")");
                 break;
             case WHILE:
-                serialization.addToBuffer(" while( ");
+                serialization.addToBuffer("(");
+                serialization.addToBuffer("while(");
                 for (var x : children) {
                     x.serialize(serialization);
                 }
-                serialization.addToBuffer(") ");
+                serialization.addToBuffer(")");
+                serialization.addToBuffer(")");
                 break;
         }
         }
