@@ -53,6 +53,11 @@ public class Tree {
         variables.add(variable);
     }
 
+    public void recountNodes()
+    {
+        nodesCount = root.recountNodes(0);
+    }
+
     public String getRandomVariable() {
         int varIdx = rd.nextInt(variables.size() + 1);
         if (varIdx == variables.size()) {

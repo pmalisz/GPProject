@@ -33,11 +33,16 @@ public class ExpressionNode extends Node {
         }
     }
 
-    public void mutate() {
+    public void mutate()
+    {
+        NodeType newExpressionNode = NodeType.getRandomExpression();
+        // TODO:
     }
 
-    public Optional<Node> crossover(Node node, int nodeNumber) {
+    public Optional<Node> crossover(Node node, int nodeNumber)
+    {
         return Optional.empty();
+        // TODO:
     }
 
 

@@ -20,8 +20,6 @@ public class Node {
         children = new ArrayList<>();
     }
 
-
-
     public Node(Tree tree, NodeType type, int depth, int number) {
         this();
         this.tree = tree;
@@ -114,5 +112,15 @@ public class Node {
 
     public void serialize(Serialize serialization) { //DFS
 
+    }
+
+    public int recountNodes(int childrenCount)
+    {
+        number = childrenCount;
+        for(Node node : children)
+        {
+            node.recountNodes(++childrenCount);
+        }
+        return childrenCount;
     }
 }
