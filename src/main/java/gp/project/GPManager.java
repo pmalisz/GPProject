@@ -7,7 +7,7 @@ import java.lang.Math;
 public class GPManager {
     // CONST
     final int
-            POP_SIZE = 2,
+            POP_SIZE = 1,
             GENERATIONS = 100,
             RANDOM_COUNT = 102,
             T_SIZE = 2;
@@ -91,6 +91,9 @@ public class GPManager {
         Tree tree = new Tree();
         tree.grow();
         tree.root.serialize(serializer);
+        var deserialize = new Deserialize("new_file.txt");
+        deserialize.readProgram();
+        System.out.print("loo");
         return tree;
     }
 

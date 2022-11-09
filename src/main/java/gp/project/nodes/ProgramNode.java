@@ -49,9 +49,11 @@ public class ProgramNode extends Node {
 
     @Override
     public void serialize(Serialize serialization){
+        serialization.addToBuffer("(");
         for (var x: children) {
             x.serialize(serialization);
         }
+        serialization.addToBuffer(")");
         serialization.addToBuffer(System.lineSeparator());
     }
 }
