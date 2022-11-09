@@ -163,6 +163,11 @@ public class GPManager {
             }
 
         population.get(best).print();
+
+        // If you want to test your mutate or crossover, please uncomment below
+        // population.get(best).mutate();
+        // population.get(best).print();
+
         return bestFitness;
     }
 

@@ -62,6 +62,24 @@ public enum NodeType {
         return nodeType.orElse(ID);
     }
 
+    public boolean isStatement()
+    {
+        NodeType[] values = { IN, OUT, ASSIGN, IF, WHILE, };
+        return Arrays.asList(values).contains(this);
+    }
+
+    public boolean isExpression()
+    {
+        NodeType[] values = { PLUS, MINUS, TIMES, DIV, GREATER, LESS, AND, OR, NOT, EQUAL, NOT_EQUAL };
+        return Arrays.asList(values).contains(this);
+    }
+
+    public boolean isFactor()
+    {
+        NodeType[] values = { ID, INT };
+        return Arrays.asList(values).contains(this);
+    }
+
     private static Optional<NodeType> valueOf(int value) {
         return Arrays.stream(values())
                 .filter(NodeType -> NodeType.value == value)

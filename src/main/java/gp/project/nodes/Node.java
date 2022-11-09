@@ -122,4 +122,29 @@ public class Node {
         }
         return childrenCount;
     }
+
+    public void clearChildren()
+    {
+        children = new ArrayList<>();
+        tree.recountNodes();
+    }
+
+    public Node getNodeByNumber(int number)
+    {
+        if (this.number == number)
+        {
+            return this;
+        }
+        else
+        {
+            Node node = null;
+            for (Node child : children)
+            {
+                node = child.getNodeByNumber(number);
+                if (node != null)
+                    break;
+            }
+            return node;
+        }
+    }
 }

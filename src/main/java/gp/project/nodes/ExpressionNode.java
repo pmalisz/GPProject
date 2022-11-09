@@ -35,8 +35,9 @@ public class ExpressionNode extends Node {
 
     public void mutate()
     {
-        NodeType newExpressionNode = NodeType.getRandomExpression();
-        // TODO:
+        clearChildren();
+        type = NodeType.getRandomExpression();
+        grow(depth);
     }
 
     public Optional<Node> crossover(Node node, int nodeNumber)
@@ -44,7 +45,6 @@ public class ExpressionNode extends Node {
         return Optional.empty();
         // TODO:
     }
-
 
     public void serialize(Serialize serialization) {
         serialization.addToBuffer("(");

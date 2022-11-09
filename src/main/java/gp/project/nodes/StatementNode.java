@@ -49,6 +49,9 @@ public class StatementNode extends Node {
     }
 
     public void mutate() {
+        clearChildren();
+        type = NodeType.getRandomStatement();
+        grow(depth);
     }
 
     public Optional<Node> crossover(Node node, int nodeNumber) {

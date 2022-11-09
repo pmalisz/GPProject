@@ -32,7 +32,14 @@ public class ProgramNode extends Node {
     }
 
     public void mutate() {
-        // TODO
+        int rand = Tree.rd.nextInt(tree.nodesCount);
+        Node nodeToMutate = getNodeByNumber(rand);
+        if(nodeToMutate.type.isStatement())
+            ((StatementNode)nodeToMutate).mutate();
+        if(nodeToMutate.type.isExpression())
+            ((ExpressionNode)nodeToMutate).mutate();
+        if(nodeToMutate.type.isFactor())
+            ((FactorNode)nodeToMutate).mutate();
     }
 
     public Optional<Node> crossover(Node node) {
