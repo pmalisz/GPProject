@@ -11,6 +11,16 @@ public class FactorNode extends Node {
         this.value = value;
     }
 
+    public FactorNode(Tree tree, NodeType type, int value){
+        super(tree, type);
+        this.value = value;
+    }
+
+    public FactorNode(Tree tree, NodeType type, String ID){
+        super(tree, type);
+        this.name = ID;
+    }
+
     public FactorNode(Tree tree, String name, int depth, int number) {
         super(tree, NodeType.ID, depth, number);
         this.name = name;

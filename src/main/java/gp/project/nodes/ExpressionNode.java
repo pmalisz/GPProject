@@ -11,6 +11,9 @@ public class ExpressionNode extends Node {
         super(tree, type, depth, number);
     }
 
+    public ExpressionNode(Tree tree, NodeType type){super(tree, type);}
+
+
     public ExpressionNode(Tree tree, Node another) {
         super(tree, another);
     }

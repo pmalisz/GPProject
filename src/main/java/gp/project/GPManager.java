@@ -92,8 +92,8 @@ public class GPManager {
         tree.grow();
         tree.root.serialize(serializer);
         var deserialize = new Deserialize("new_file.txt");
-        deserialize.readProgram();
-        System.out.print("loo");
+        var root = deserialize.readProgram();
+        var tree1 = deserialize.makeTree(root);
         return tree;
     }
 

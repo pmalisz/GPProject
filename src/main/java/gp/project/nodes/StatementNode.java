@@ -11,6 +11,8 @@ public class StatementNode extends Node {
         super(tree, type, depth, number);
     }
 
+    public  StatementNode(Tree tree, NodeType type){super(tree, type);}
+
     public StatementNode(Tree tree, Node another) {
         super(tree, another);
     }
