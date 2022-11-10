@@ -47,20 +47,22 @@ public class Deserialize {
                 node.list.add(pair.node);
                 start = pair.position;
             }
-            if (')' == program.charAt(start)) {
-                return new Pair(start + 1,node);
+            else if (')' == program.charAt(start)) {
+                return new Pair(start + 1, node);
             }
             else{
                 for(int i = start ; i < program.length(); i++){
                     if(program.charAt(i) == ')' || program.charAt(i) == '('){
                         node.value = program.substring(start, i);
+                        start = i;
+                        break;
                     }
                 }
             }
         }
         return null;
     }
-    class Pair{
+    static class Pair{
         public int position;
         public StringNode node;
 

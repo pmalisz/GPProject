@@ -5,10 +5,11 @@ import java.util.List;
 
 public class StringNode {
     String value;
-    List<StringNode> list;
+    ArrayList<StringNode> list;
 
     StringNode(String node) {
         this.value = node;
+        this.list = new ArrayList<>();
     }
 
 }
