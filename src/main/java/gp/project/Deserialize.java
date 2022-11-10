@@ -18,15 +18,6 @@ public class Deserialize {
         }
     }
 
-    public char readCharFromFile() {
-        try {
-            return (char) reader.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
     public StringNode readProgram() {
         try {
             return spilt_tree(reader.readLine());
@@ -64,20 +55,20 @@ public class Deserialize {
         return null;
     }
 
-    public Node traversePreOrder(StringNode root_string, Node root, Tree tree) {
+    public void traversePreOrder(StringNode root_string, Node root, Tree tree) {
         for (var node_: root_string.list) {
             var child = checkType(node_,tree);
-            root.children.add(child);
-            traversePreOrder(node_,root,tree);
+            root.addChild(child);
+            traversePreOrder(node_,child,tree);
         }
     }
 
     private Node checkType(StringNode node, Tree tree) {
-        Node actual = new Node();
+        Node actual;
         switch (node.value) {
             case ("in"):
                 actual = new StatementNode(tree, NodeType.IN);
-                break;
+                return  actual;
             case ("out"):
                 actual = new StatementNode(tree, NodeType.OUT);
                 return  actual;
@@ -93,7 +84,7 @@ public class Deserialize {
                 return  actual;
 
             case ("+"):
-                actual = new ExpressionNode(tree, NodeType.IN);
+                actual = new ExpressionNode(tree, NodeType.PLUS);
                 return  actual;
 
             case ("-"):
@@ -144,13 +135,11 @@ public class Deserialize {
                 actual = new FactorNode(tree, NodeType.ID, node.value);
                 return  actual;
         }
-        return  null;
     }
 
     public Tree makeTree(StringNode root) {
         var tree = new Tree();
-        var programRoot = new ProgramNode(tree);
-        var node = traversePreOrder(root,programRoot, tree);
+        traversePreOrder(root, tree.root, tree);
         return tree;
     }
 

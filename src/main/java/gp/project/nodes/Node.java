@@ -21,7 +21,11 @@ public class Node {
         children = new ArrayList<>();
     }
 
-    public  Node(Tree tree, NodeType type){this.tree = tree; this.type = type;}
+    public Node(Tree tree, NodeType type) {
+        this();
+        this.tree = tree;
+        this.type = type;
+    }
 
     public Node(Tree tree, NodeType type, int depth, int number) {
         this();
@@ -180,5 +184,11 @@ public class Node {
             }
             return node;
         }
+    }
+
+    public void addChild(Node child){
+        child.depth = depth + 1;
+        child.number = tree.nodesCount++;
+        children.add(child);
     }
 }
