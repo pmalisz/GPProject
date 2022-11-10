@@ -67,7 +67,7 @@ public class Deserialize {
     public Node traversePreOrder(StringNode root_string, Node root, Tree tree) {
         for (var node_: root_string.list) {
             var child = checkType(node_,tree);
-
+            root.children.add(child);
             traversePreOrder(node_,root,tree);
         }
     }
