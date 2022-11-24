@@ -1,4 +1,4 @@
-// Generated from C:/Users/Pawel/IdeaProjects/GPProject/src/main/antlr4/gp/project\Grammar.g4 by ANTLR 4.9.2
+// Generated from java-escape by ANTLR 4.11.1
 package gp.project.gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

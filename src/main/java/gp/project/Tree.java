@@ -1,5 +1,8 @@
 package gp.project;
 
+import gp.project.gen.*;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
 import gp.project.nodes.ProgramNode;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +37,15 @@ public class Tree {
         root.grow();
     }
 
-    public double run(List<Double> inputs) {
+    public int run(List<Integer> inputs) {
+        GrammarLexer lexer = new GrammarLexer(CharStreams.fromString("program{ a=5; while(a>0){ out(a); }}"));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        GrammarParser parser = new GrammarParser(tokens);
+        ParseTree tree = parser.program();
+
+        GrammarCustomVisitor visitor = new GrammarCustomVisitor(inputs);
+        visitor.visit(tree);
+
         return root.run(inputs);
     }
 

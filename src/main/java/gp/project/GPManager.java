@@ -23,7 +23,7 @@ public class GPManager {
     int minRandom, maxRandom;
     int varNumber, fitnessCases, randomNumber;
     long seed;
-    double[][] targets;
+    int[][] targets;
 
     public GPManager(String fileName, long s ) {
         population = new ArrayList<>();
@@ -57,13 +57,13 @@ public class GPManager {
             if (varNumber + randomNumber >= RANDOM_COUNT)
                 System.out.println("too many variables and constants");
 
-            targets = new double[fitnessCases][varNumber + 1];
+            targets = new int[fitnessCases][varNumber + 1];
 
             for (int i = 0; i < fitnessCases; i ++) {
                 line = in.readLine();
                 tokens = new StringTokenizer(line);
                 for (int j = 0; j <= varNumber; j++)
-                    targets[i][j] = Double.parseDouble(tokens.nextToken().trim());
+                    targets[i][j] = Integer.parseInt(tokens.nextToken().trim());
             }
 
             in.close();
@@ -98,9 +98,9 @@ public class GPManager {
         return tree;
     }
 
-    List<Double> runForAllInputs(Tree tree) {
-        List<Double> input = new ArrayList<>();
-        List<Double> outputs = new ArrayList<>();
+    List<Integer> runForAllInputs(Tree tree) {
+        List<Integer> input = new ArrayList<>();
+        List<Integer> outputs = new ArrayList<>();
 
         for (int i = 0; i < fitnessCases; i ++) {
             // TODO for now including target value, to be changed in the future
@@ -114,7 +114,7 @@ public class GPManager {
         return outputs;
     }
 
-    double fitnessFunction(List<Double> outputs) {
+    double fitnessFunction(List<Integer> outputs) {
         double fit = 0.0;
 
         for (int i = 0; i < outputs.size(); i++)
