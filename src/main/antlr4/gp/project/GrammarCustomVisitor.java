@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GrammarCustomVisitor extends GrammarBaseVisitor<Integer> {
-    public final int MAX_OPERATIONS = 5;
+    public final int MAX_OPERATIONS = 100;
     public int operations = 0;
     public HashMap<String, Integer> variables;
     public List<Integer> inputs;

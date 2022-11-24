@@ -38,7 +38,7 @@ public class Tree {
     }
 
     public int run(List<Integer> inputs) {
-        GrammarLexer lexer = new GrammarLexer(CharStreams.fromString("program{ a=5; while(a>0){ out(a); }}"));
+        GrammarLexer lexer = new GrammarLexer(CharStreams.fromString("program{ a=5; while(a>0){ out(a); a=a-1; }}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         GrammarParser parser = new GrammarParser(tokens);
         ParseTree tree = parser.program();
