@@ -4,8 +4,6 @@ import gp.project.Serialize;
 import gp.project.Tree;
 import gp.project.enums.NodeType;
 
-import java.util.List;
-
 public class ProgramNode extends Node {
 
     public ProgramNode(Tree tree) {
@@ -52,12 +50,13 @@ public class ProgramNode extends Node {
     }
 
     @Override
-    public void  serializeToTree(Serialize serialization){
-        serialization.addToBuffer("program{ ");
+    public Serialize serializeToTree(Serialize serialization){
+        serialization.addToBuffers("program{ ");
         for (var x: children) {
             x.serializeToTree(serialization);
         }
-        serialization.addToBuffer("}");
-        serialization.addToBuffer(System.lineSeparator());
+        serialization.addToBuffers("}");
+        serialization.addToBuffers(System.lineSeparator());
+        return serialization;
     }
 }

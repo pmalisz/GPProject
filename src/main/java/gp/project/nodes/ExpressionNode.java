@@ -71,22 +71,23 @@ public class ExpressionNode extends Node {
 
 
     @Override
-    public void serializeToTree(Serialize serialization) {
+    public Serialize serializeToTree(Serialize serialization) {
         if (this.type == NodeType.NOT){
-            serialization.addToBuffer(this.type.toString());
+            serialization.addToBuffers(this.type.toString());
             children.get(0).serializeToTree(serialization);
-            return;
+            return null;
         }
         if (children.size() == 1) {
-            serialization.addToBuffer(this.type.toString());
+            serialization.addToBuffers(this.type.toString());
             children.get(0).serializeToTree(serialization);
-            serialization.addToBuffer("; ");
+            serialization.addToBuffers("; ");
         } else {
             children.get(0).serializeToTree(serialization);
-            serialization.addToBuffer(this.type.toString());
+            serialization.addToBuffers(this.type.toString());
             children.get(1).serializeToTree(serialization);
 
         }
+        return null;
     }
 
 }

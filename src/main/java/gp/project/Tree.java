@@ -37,8 +37,10 @@ public class Tree {
         root.grow();
     }
 
-    public List<Integer> run(List<Integer> inputs) {
-        GrammarLexer lexer = new GrammarLexer(CharStreams.fromString("program{ a=5; while(a>0){ out(a); a=a-1; }}"));
+    public List<Integer> run(List<Integer> inputs){
+        Serialize serializer = new Serialize("programs.txt");
+        String stringRepresentation = this.root.serializeToTree(serializer).string.toString();
+        GrammarLexer lexer = new GrammarLexer(CharStreams.fromString(stringRepresentation));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         GrammarParser parser = new GrammarParser(tokens);
         ParseTree tree = parser.program();

@@ -80,11 +80,12 @@ public class FactorNode extends Node {
     }
 
     @Override
-    public void serializeToTree(Serialize serialization){
+    public Serialize serializeToTree(Serialize serialization){
         if(type == NodeType.ID)
-            serialization.addToBuffer(name);
+            serialization.addToBuffers(name);
         else {
-            serialization.addToBuffer(Integer.toString(value));
+            serialization.addToBuffers(Integer.toString(value));
         }
+        return null;
     }
 }

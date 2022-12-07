@@ -113,57 +113,57 @@ public class StatementNode extends Node {
         }
 
 
-    public void serializeToTree(Serialize serialization){
+    public Serialize serializeToTree(Serialize serialization){
         switch(this.type) {
 
             case ASSIGN:
                 if (children.size() == 1) {
-                    serialization.addToBuffer(this.type.toString());
+                    serialization.addToBuffers(this.type.toString());
                     children.get(0).serializeToTree(serialization);
-                    serialization.addToBuffer("; ");
                 }
                 else{
                     children.get(0).serializeToTree(serialization);
-                    serialization.addToBuffer(this.type.toString());
+                    serialization.addToBuffers(this.type.toString());
                     children.get(1).serializeToTree(serialization);
-                    serialization.addToBuffer("; ");
                 }
+                serialization.addToBuffers("; ");
                 break;
             case OUT:
             case IN:
                 if (children.size() == 1) {
-                    serialization.addToBuffer(this.type.toString());
-                    serialization.addToBuffer("(");
+                    serialization.addToBuffers(this.type.toString());
+                    serialization.addToBuffers("(");
                     children.get(0).serializeToTree(serialization);
                 }
                 else{
                     children.get(0).serializeToTree(serialization);
-                    serialization.addToBuffer(this.type.toString());
-                    serialization.addToBuffer("(");
+                    serialization.addToBuffers(this.type.toString());
+                    serialization.addToBuffers("(");
                     children.get(1).serializeToTree(serialization);
                 }
-                serialization.addToBuffer("); ");
+                serialization.addToBuffers("); ");
                 break;
             case IF:
-                serialization.addToBuffer("if(");
+                serialization.addToBuffers("if(");
                 children.get(0).serializeToTree(serialization);
-                serialization.addToBuffer(")");
-                serialization.addToBuffer("{ ");
+                serialization.addToBuffers(")");
+                serialization.addToBuffers("{ ");
                 for (int i = 1; i < children.size(); i++) {
                     children.get(i).serializeToTree(serialization);
                 }
-                serialization.addToBuffer("}");
+                serialization.addToBuffers("}");
                 break;
             case WHILE:
-                serialization.addToBuffer("while(");
+                serialization.addToBuffers("while(");
                 children.get(0).serializeToTree(serialization);
-                serialization.addToBuffer(")");
-                serialization.addToBuffer("{ ");
+                serialization.addToBuffers(")");
+                serialization.addToBuffers("{ ");
                 for (int i = 1; i < children.size(); i++) {
                     children.get(i).serializeToTree(serialization);
                 }
-                serialization.addToBuffer("}");
+                serialization.addToBuffers("}");
                 break;
         }
+        return null;
     }
 }

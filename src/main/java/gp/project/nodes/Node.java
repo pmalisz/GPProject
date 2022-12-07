@@ -192,8 +192,8 @@ public class Node {
         children.add(child);
     }
 
-    public void serializeToTree(Serialize serialization){}
-
-    protected void serializeToIf(Serialize serialization) {
+    public Serialize serializeToTree(Serialize serialization){
+        return null;
     }
+
 }
