@@ -3,18 +3,25 @@ package gp.project;
 import gp.project.gen.GrammarBaseVisitor;
 import gp.project.gen.GrammarParser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class GrammarCustomVisitor extends GrammarBaseVisitor<Integer> {
-    public final int MAX_OPERATIONS = 100;
-    public int operations = 0;
-    public HashMap<String, Integer> variables;
-    public List<Integer> inputs;
+    private final int MAX_OPERATIONS = 100;
+    private int operations = 0;
+    private final HashMap<String, Integer> variables;
+    private final List<Integer> inputs;
+    private final List<Integer> outputs;
 
     public GrammarCustomVisitor(List<Integer> inputs){
         this.variables = new HashMap<>();
+        this.outputs = new ArrayList<>();
         this.inputs = inputs;
+    }
+
+    public List<Integer> getOutputs() {
+        return outputs;
     }
 
     @Override public Integer visitSimple_statement(GrammarParser.Simple_statementContext ctx) {
@@ -48,7 +55,7 @@ public class GrammarCustomVisitor extends GrammarBaseVisitor<Integer> {
     }
 
     private void handleOut(GrammarParser.Io_functionsContext ctx){
-        System.out.println(visit(ctx.factor()));
+        outputs.add(visit(ctx.factor()));
     }
 
     @Override public Integer visitConditional_statement(GrammarParser.Conditional_statementContext ctx) {

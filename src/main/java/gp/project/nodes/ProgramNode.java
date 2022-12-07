@@ -16,12 +16,6 @@ public class ProgramNode extends Node {
         super(tree, another);
     }
 
-    public int run(List<Integer> input) {
-        // TODO (in the future)
-
-        return input.get(input.size() - 1);
-    }
-
     public void grow() {
         int growFurther = Tree.rd.nextInt(2);
         StatementNode stNode = addStatementChild();

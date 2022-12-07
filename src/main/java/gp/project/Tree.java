@@ -37,7 +37,7 @@ public class Tree {
         root.grow();
     }
 
-    public int run(List<Integer> inputs) {
+    public List<Integer> run(List<Integer> inputs) {
         GrammarLexer lexer = new GrammarLexer(CharStreams.fromString("program{ a=5; while(a>0){ out(a); a=a-1; }}"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         GrammarParser parser = new GrammarParser(tokens);
@@ -46,7 +46,7 @@ public class Tree {
         GrammarCustomVisitor visitor = new GrammarCustomVisitor(inputs);
         visitor.visit(tree);
 
-        return root.run(inputs);
+        return visitor.getOutputs();
     }
 
     public void crossover(Tree tree) {

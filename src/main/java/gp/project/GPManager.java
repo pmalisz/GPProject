@@ -98,13 +98,12 @@ public class GPManager {
         return tree;
     }
 
-    List<Integer> runForAllInputs(Tree tree) {
+    List<List<Integer>> runForAllInputs(Tree tree) {
         List<Integer> input = new ArrayList<>();
-        List<Integer> outputs = new ArrayList<>();
+        List<List<Integer>> outputs = new ArrayList<>();
 
         for (int i = 0; i < fitnessCases; i ++) {
-            // TODO for now including target value, to be changed in the future
-            for (int j = 0; j <= varNumber; j++)
+            for (int j = 0; j < varNumber; j++)
                 input.add(targets[i][j]);
 
             outputs.add(tree.run(input));
@@ -114,11 +113,19 @@ public class GPManager {
         return outputs;
     }
 
-    double fitnessFunction(List<Integer> outputs) {
+    double fitnessFunction(List<List<Integer>> outputs) {
         double fit = 0.0;
 
-        for (int i = 0; i < outputs.size(); i++)
-            fit += Math.abs(outputs.get(i) - targets[i][varNumber]);
+        for (int i = 0; i < outputs.size(); i++) {
+            double tempFit = Double.MAX_VALUE;
+            for (int j = 0; j < outputs.get(i).size(); j++) {
+                double diff = Math.abs(outputs.get(i).get(j) - targets[i][varNumber]);
+                if (diff < tempFit)
+                    tempFit = diff;
+            }
+
+            fit += tempFit;
+        }
 
         return -fit;
     }
