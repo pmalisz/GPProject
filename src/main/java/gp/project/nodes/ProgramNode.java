@@ -37,7 +37,7 @@ public class ProgramNode extends Node {
     public void crossover(Node node) {
         int rand;
         if (tree.nodesCount <= 1){
-            rand = 1;
+            rand = 0;
         }
         else {
             rand = Tree.rd.nextInt(tree.nodesCount - 1) + 1;

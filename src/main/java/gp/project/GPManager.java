@@ -7,8 +7,8 @@ import java.lang.Math;
 public class GPManager {
     // CONST
     final int
-            POP_SIZE = 5,
-            GENERATIONS = 100,
+            POP_SIZE = 2000,
+            GENERATIONS = 1000,
             RANDOM_COUNT = 102,
             T_SIZE = 2;
     public final double
