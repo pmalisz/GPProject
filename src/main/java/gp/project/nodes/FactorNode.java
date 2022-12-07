@@ -78,4 +78,13 @@ public class FactorNode extends Node {
         }
         serialization.addToBuffer(")");
     }
+
+    @Override
+    public void serializeToTree(Serialize serialization){
+        if(type == NodeType.ID)
+            serialization.addToBuffer(name);
+        else {
+            serialization.addToBuffer(Integer.toString(value));
+        }
+    }
 }

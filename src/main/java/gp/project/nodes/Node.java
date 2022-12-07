@@ -191,4 +191,9 @@ public class Node {
         child.number = tree.nodesCount++;
         children.add(child);
     }
+
+    public void serializeToTree(Serialize serialization){}
+
+    protected void serializeToIf(Serialize serialization) {
+    }
 }

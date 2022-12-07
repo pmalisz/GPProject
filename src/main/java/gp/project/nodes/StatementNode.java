@@ -109,7 +109,61 @@ public class StatementNode extends Node {
                 }
                 serialization.addToBuffer(")");
                 break;
+            }
         }
+
+
+    public void serializeToTree(Serialize serialization){
+        switch(this.type) {
+
+            case ASSIGN:
+                if (children.size() == 1) {
+                    serialization.addToBuffer(this.type.toString());
+                    children.get(0).serializeToTree(serialization);
+                    serialization.addToBuffer("; ");
+                }
+                else{
+                    children.get(0).serializeToTree(serialization);
+                    serialization.addToBuffer(this.type.toString());
+                    children.get(1).serializeToTree(serialization);
+                    serialization.addToBuffer("; ");
+                }
+                break;
+            case OUT:
+            case IN:
+                if (children.size() == 1) {
+                    serialization.addToBuffer(this.type.toString());
+                    serialization.addToBuffer("(");
+                    children.get(0).serializeToTree(serialization);
+                }
+                else{
+                    children.get(0).serializeToTree(serialization);
+                    serialization.addToBuffer(this.type.toString());
+                    serialization.addToBuffer("(");
+                    children.get(1).serializeToTree(serialization);
+                }
+                serialization.addToBuffer("); ");
+                break;
+            case IF:
+                serialization.addToBuffer("if(");
+                children.get(0).serializeToTree(serialization);
+                serialization.addToBuffer(")");
+                serialization.addToBuffer("{ ");
+                for (int i = 1; i < children.size(); i++) {
+                    children.get(i).serializeToTree(serialization);
+                }
+                serialization.addToBuffer("}");
+                break;
+            case WHILE:
+                serialization.addToBuffer("while(");
+                children.get(0).serializeToTree(serialization);
+                serialization.addToBuffer(")");
+                serialization.addToBuffer("{ ");
+                for (int i = 1; i < children.size(); i++) {
+                    children.get(i).serializeToTree(serialization);
+                }
+                serialization.addToBuffer("}");
+                break;
         }
     }
-
+}

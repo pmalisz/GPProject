@@ -11,7 +11,9 @@ public class ExpressionNode extends Node {
         super(tree, type, depth, number);
     }
 
-    public ExpressionNode(Tree tree, NodeType type){super(tree, type);}
+    public ExpressionNode(Tree tree, NodeType type) {
+        super(tree, type);
+    }
 
 
     public ExpressionNode(Tree tree, Node another) {
@@ -38,16 +40,14 @@ public class ExpressionNode extends Node {
     }
 
     @Override
-    public void mutate()
-    {
+    public void mutate() {
         clearChildren();
         type = NodeType.getRandomExpression();
         grow();
     }
 
     @Override
-    public Optional<Node> crossover(Node node, int nodeNumber)
-    {
+    public Optional<Node> crossover(Node node, int nodeNumber) {
         if (number != nodeNumber) {
             return crossoverFurther(node, nodeNumber);
         } else {
@@ -55,17 +55,38 @@ public class ExpressionNode extends Node {
         }
     }
 
+    @Override
     public void serialize(Serialize serialization) {
         serialization.addToBuffer("(");
         if (children.size() == 1) {
             serialization.addToBuffer(this.type.toString());
             children.get(0).serialize(serialization);
-        }
-        else{
+        } else {
             children.get(0).serialize(serialization);
             serialization.addToBuffer(this.type.toString());
             children.get(1).serialize(serialization);
-            }
+        }
         serialization.addToBuffer(")");
+    }
+
+
+    @Override
+    public void serializeToTree(Serialize serialization) {
+        if (this.type == NodeType.NOT){
+            serialization.addToBuffer(this.type.toString());
+            children.get(0).serializeToTree(serialization);
+            return;
+        }
+        if (children.size() == 1) {
+            serialization.addToBuffer(this.type.toString());
+            children.get(0).serializeToTree(serialization);
+            serialization.addToBuffer("; ");
+        } else {
+            children.get(0).serializeToTree(serialization);
+            serialization.addToBuffer(this.type.toString());
+            children.get(1).serializeToTree(serialization);
+
         }
     }
+
+}

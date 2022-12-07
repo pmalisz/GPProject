@@ -50,4 +50,14 @@ public class ProgramNode extends Node {
         serialization.addToBuffer(")");
         serialization.addToBuffer(System.lineSeparator());
     }
+
+    @Override
+    public void  serializeToTree(Serialize serialization){
+        serialization.addToBuffer("program{ ");
+        for (var x: children) {
+            x.serializeToTree(serialization);
+        }
+        serialization.addToBuffer("}");
+        serialization.addToBuffer(System.lineSeparator());
+    }
 }

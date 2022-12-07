@@ -7,7 +7,7 @@ import java.lang.Math;
 public class GPManager {
     // CONST
     final int
-            POP_SIZE = 2,
+            POP_SIZE = 300,
             GENERATIONS = 100,
             RANDOM_COUNT = 102,
             T_SIZE = 2;
@@ -90,11 +90,11 @@ public class GPManager {
     Tree createRandomTree(Serialize serializer) {
         Tree tree = new Tree();
         tree.grow();
-        tree.root.serialize(serializer);
-        var deserialize = new Deserialize("new_file.txt");
-        var root = deserialize.readProgram();
-        var tree1 = deserialize.makeTree(root);
-        tree1.print();
+        tree.root.serializeToTree(serializer);
+//        var deserialize = new Deserialize("new_file.txt");
+//        var root = deserialize.readProgram();
+//        var tree1 = deserialize.makeTree(root);
+//        tree1.print();
         return tree;
     }
 
