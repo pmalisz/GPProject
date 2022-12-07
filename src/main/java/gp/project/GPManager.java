@@ -90,7 +90,6 @@ public class GPManager {
     Tree createRandomTree(Serialize serializer) {
         Tree tree = new Tree();
         tree.grow();
-        tree.root.serializeToTree(serializer);
 //        var deserialize = new Deserialize("new_file.txt");
 //        var root = deserialize.readProgram();
 //        var tree1 = deserialize.makeTree(root);

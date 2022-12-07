@@ -44,11 +44,11 @@ public class Tree {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         GrammarParser parser = new GrammarParser(tokens);
         ParseTree tree = parser.program();
-
         GrammarCustomVisitor visitor = new GrammarCustomVisitor(inputs);
         visitor.visit(tree);
 
         return visitor.getOutputs();
+
     }
 
     public void crossover(Tree tree) {
@@ -77,7 +77,6 @@ public class Tree {
         if (varIdx == variables.size()) {
             addVariables("v" + varIdx);
         }
-
         return variables.get(varIdx);
     }
 }

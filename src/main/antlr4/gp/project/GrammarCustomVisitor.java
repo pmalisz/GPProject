@@ -103,7 +103,11 @@ public class GrammarCustomVisitor extends GrammarBaseVisitor<Integer> {
         else if(ctx.TIMES() != null)
             return visit(ctx.equation(0)) * visit(ctx.equation(1));
         else if (ctx.DIV() != null)
-            return visit(ctx.equation(0)) / visit(ctx.equation(1));
+            if (visit(ctx.equation(1)) < 1.0e-10)
+                return visit(ctx.equation(0));
+            else {
+                return visit(ctx.equation(0)) / visit(ctx.equation(1));
+            }
         else if (ctx.PLUS(0) != null)
             return visit(ctx.equation(0)) + visit(ctx.equation(1));
         else if (ctx.MINUS(0) != null)
