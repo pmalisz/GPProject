@@ -38,7 +38,7 @@ public class Tree {
     }
 
     public List<Integer> run(List<Integer> inputs){
-        Serialize serializer = new Serialize("programs.txt");
+        Serialize serializer = new Serialize("programs.txt", false);
         String stringRepresentation = this.root.serializeToTree(serializer).string.toString();
         GrammarLexer lexer = new GrammarLexer(CharStreams.fromString(stringRepresentation));
         CommonTokenStream tokens = new CommonTokenStream(lexer);

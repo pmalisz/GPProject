@@ -9,14 +9,15 @@ public class GPManager {
     final int
             POP_SIZE = 2000,
             GENERATIONS = 1000,
-            RANDOM_COUNT = 102,
+            RANDOM_COUNT = 103,
             T_SIZE = 2;
     public final double
-            CROSSOVER_PROB = 0.9,
-            EPSILON = -1e-5;
+            CROSSOVER_PROB = 0.5,
+            EPSILON = 2;
 
     // VAR
     static Random rd = new Random();
+    Serialize serializer = new Serialize("best.txt", true);
 
     List<Tree> population;
     double[] fitness;
@@ -79,7 +80,7 @@ public class GPManager {
     }
 
     void createRandomPopulation(double[] fitness) {
-        var serial = new Serialize("new_file.txt");
+        var serial = new Serialize("new_file.txt", false);
         for (int i = 0; i < POP_SIZE; i++) {
             Tree tree = createRandomTree(serial);
             population.add(tree);
@@ -170,7 +171,8 @@ public class GPManager {
                 best = i;
             }
 
-        population.get(best).print();
+        System.out.println(bestFitness);
+        population.get(best).root.serializeToTree(serializer);
 
         // mutate test
         /*population.get(0).mutate();
