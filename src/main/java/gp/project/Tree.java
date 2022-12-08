@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Tree {
-    public static final int MAX_DEPTH = 3;
+    public static final int MAX_DEPTH = 5;
     public static Random rd = new Random();
     public static List<Integer> numbers = new ArrayList<>();
     public List<String> variables = new ArrayList<>();

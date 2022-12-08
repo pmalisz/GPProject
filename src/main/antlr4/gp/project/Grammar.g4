@@ -35,14 +35,10 @@ expression
     |   expression (EQUAL | NOT_EQUAL) expression
     |   LEFT_PAREN expression RIGHT_PAREN
     |   NOT expression
-    |   equation ;
-
-equation
-   :   equation (TIMES | DIV)  equation
-   |   equation (PLUS | MINUS) equation
-   |   LEFT_PAREN equation RIGHT_PAREN
-   |   (PLUS | MINUS)* factor
-   ;
+    |   expression (TIMES | DIV)  expression
+    |   expression (PLUS | MINUS) expression
+    |   LEFT_PAREN expression RIGHT_PAREN
+    |   (PLUS | MINUS)* factor ;
 
 factor
    :   ID

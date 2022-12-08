@@ -123,7 +123,7 @@ public class GPManager {
                     tempFit = diff;
             }
 
-            fit += tempFit;
+            fit = tempFit > 1e30 ? tempFit : fit + tempFit;
         }
 
         return -fit;

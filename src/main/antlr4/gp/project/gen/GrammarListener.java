@@ -88,16 +88,6 @@ public interface GrammarListener extends ParseTreeListener {
 	 */
 	void exitExpression(GrammarParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GrammarParser#equation()}.
-	 * @param ctx the parse tree
-	 */
-	void enterEquation(GrammarParser.EquationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link GrammarParser#equation()}.
-	 * @param ctx the parse tree
-	 */
-	void exitEquation(GrammarParser.EquationContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link GrammarParser#factor}.
 	 * @param ctx the parse tree
 	 */

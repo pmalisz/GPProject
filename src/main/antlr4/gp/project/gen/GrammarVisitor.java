@@ -59,12 +59,6 @@ public interface GrammarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(GrammarParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GrammarParser#equation()}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEquation(GrammarParser.EquationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link GrammarParser#factor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

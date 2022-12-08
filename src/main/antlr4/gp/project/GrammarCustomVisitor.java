@@ -93,27 +93,22 @@ public class GrammarCustomVisitor extends GrammarBaseVisitor<Integer> {
             return visit(ctx.expression(0));
         else if (ctx.NOT() != null)
             return visit(ctx.expression(0)) == 0 ? 1 : 0;
-        else
-            return visit(ctx.equation());
-    }
-
-    @Override public Integer visitEquation(GrammarParser.EquationContext ctx) {
-        if(ctx.factor() != null)
+        else if(ctx.factor() != null)
             return ctx.MINUS(0) != null ? -1 * visit(ctx.factor()) : visit(ctx.factor());
         else if(ctx.TIMES() != null)
-            return visit(ctx.equation(0)) * visit(ctx.equation(1));
+            return visit(ctx.expression(0)) * visit(ctx.expression(1));
         else if (ctx.DIV() != null)
-            if (visit(ctx.equation(1)) < 1.0e-10)
-                return visit(ctx.equation(0));
+            if (visit(ctx.expression(1)) < 1.0e-10)
+                return visit(ctx.expression(0));
             else {
-                return visit(ctx.equation(0)) / visit(ctx.equation(1));
+                return visit(ctx.expression(0)) / visit(ctx.expression(1));
             }
         else if (ctx.PLUS(0) != null)
-            return visit(ctx.equation(0)) + visit(ctx.equation(1));
+            return visit(ctx.expression(0)) + visit(ctx.expression(1));
         else if (ctx.MINUS(0) != null)
-            return visit(ctx.equation(0)) - visit(ctx.equation(1));
+            return visit(ctx.expression(0)) - visit(ctx.expression(1));
         else
-            return visit(ctx.equation(0));
+            return visit(ctx.expression(0));
     }
 
     @Override public Integer visitFactor(GrammarParser.FactorContext ctx) {
